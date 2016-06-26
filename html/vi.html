@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>组件封装</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="../css/bootstrap.css" rel="stylesheet">
+<style>
+.row{
+	margin-top: 29px;
+}
+</style>
+</head>
+<body class="container-fluid">
+	<template id="vi-template">
+		<input type="text" class="form-control"
+	 name="{{input.name}}" id="{{input.name}}"  v-model="input.value"/>
+	</template>
+    <div class="row">
+				<div class="col-md-4" id="mytest">
+						<form action="">
+							<div class="form-group">
+								<label for="test">name</label>
+								 <vi :input="obj"></vi>
+								{{toJson}}
+							</div>
+						</form>
+				</div>
+
+    </div>
+     
+</body>
+<script src="../js/lib/vue.js"></script>
+ 
+<script>
+//注册组件
+Vue.component('vi',{
+	template:'#vi-template',
+	replace:true,
+	props:{
+		input:Object
+	}
+
+});
+//解析指定节点的可解析的vue对象
+ var vm = new Vue({
+	el:'#mytest',
+	data:{
+		obj:{
+			name:'xubowen',
+			value:'11111'
+		}
+	},
+	//属性变化后实时执行
+	computed:{
+		toJson:function(){
+			var _input=this.obj,  arr = [];
+			for(var key in _input){
+				arr.push(key+":"+_input[key]);
+			}
+			return arr.join(',');
+			}
+	}
+	
+
+}); 
+</script>
+</html>

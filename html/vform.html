@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vform</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script data-main="../js/main.js" src="../js/require.js"></script>
+    <style>
+    .row {
+        margin-top: 29px;
+        padding: 0;
+    }
+    .form-group{
+    	text-align: center;
+    }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="row" id="mytest">
+        <form action="">
+        	<vi  v-for="input in inputs" :input="input"></vi>
+        </form>
+    </div>
+    </div>
+</body>
+<script type="text/javascript">
+require(['app/vi'], function(Vue) {
+	var arr = [];
+	for(var i =0;i<10;i++){
+		arr.push({
+			label:'name'+i,
+			name:'nameprop'+i,
+			value:'1000'+i
+		});
+	}
+    var v = new Vue({
+        el: '#mytest',
+        data: {
+             inputs:arr
+        }  
+    });
+});
+</script>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>双向绑定</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="../css/bootstrap.css" rel="stylesheet">
+<style>
+.row{
+	margin-top: 29px;
+}
+</style>
+</head>
+<body class="container-fluid">
+    <div class="row">
+				<div class="col-md-4" id="mytest">
+						<form action="">
+							<div class="form-group">
+								<label for="test">name</label>
+								<input type="text" class="form-control" name="test" id="test" 
+								 v-model="name"><br/>
+									{{name}}
+								
+							</div>
+						</form>
+				</div>
+
+    </div>
+     
+</body>
+<script src="../js/lib/vue.js"></script>
+<script>
+var vm = new Vue({
+	el:'#mytest',
+	data:{
+		name:'xubowen'
+	}
+
+});
+</script>
+</html>
