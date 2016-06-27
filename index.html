@@ -182,7 +182,134 @@ var v = new Vue({
 });
 &lt;/script&gt;</pre>
             </div>
+            <div class="col-md-12">
+                <h1><a href="">表格</a></h1>
+                <div class="context">
+                   table=thead+tbody+tfoot.
+                   tbody又是的数据是由表头控制的.因此thead和tbody是需要通过属性关联的。
+                </div>
+                 <div class="col-md-12">
+                    <h3><a href="html/table.html" target="_blank">& 一个简单表格的html</a></h3>
+                </div>
+                 </div>
+                    <pre>
+                        &lt;table class="table table-hover"&gt;
+      &lt;thead&gt;
+       &lt;th&gt;thead1&lt;/th&gt;
+       &lt;th&gt;thead2&lt;/th&gt;
+       &lt;th&gt;thead3&lt;/th&gt;
+       &lt;th&gt;thead4&lt;/th&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;第一行&lt;/td&gt;
+          &lt;td&gt;第一行&lt;/td&gt;
+          &lt;td&gt;第一行&lt;/td&gt;
+          &lt;td&gt;第一行&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;第二行&lt;/td&gt;
+          &lt;td&gt;第二行&lt;/td&gt;
+          &lt;td&gt;第二行&lt;/td&gt;
+          &lt;td&gt;第二行&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;第三行&lt;/td&gt;
+          &lt;td&gt;第三行&lt;/td&gt;
+          &lt;td&gt;第三行&lt;/td&gt;
+          &lt;td&gt;第三行&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;第四行&lt;/td&gt;
+          &lt;td&gt;第四行&lt;/td&gt;
+          &lt;td&gt;第四行&lt;/td&gt;
+          &lt;td&gt;第四行&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;第五行&lt;/td&gt;
+          &lt;td&gt;第五行&lt;/td&gt;
+          &lt;td&gt;第五行&lt;/td&gt;
+          &lt;td&gt;第五行&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+      &lt;tfoot&gt;
+        &lt;tr&gt;
+          &lt;td colspan="4" style="text-align:center;"&gt;这里可以放翻页控件&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tfoot&gt;
+    &lt;/table&gt;
+                    </pre>
+ 
+    <div class="col-md-12">
+       <h3>& 表格组件模块化</h3>
+    </div>
+    <pre>
+//注册模块
+define(['lib/vue'],function(Vue){
+//注册组件 &lt;vt :thead="" :tbody="" &gt;&lt;/vt&gt;
+    Vue.component('vt',{
+  template:'&lt;table class="table table-hover"&gt;'+
+                '&lt;thead&gt;'+
+                    '&lt;th v-for="th in thead" v-if="th.show"&gt;{{th.text}}&lt;/th&gt;'+
+                '&lt;/thead&gt;'+
+            ' &lt;tbody&gt;'+
+             '   &lt;tr v-for="row in tbody"&gt;'+
+                   ' &lt;td v-for="th in thead" v-if="th.show"&gt;{{row[th.name]}}&lt;/td&gt;'+
+               ' &lt;/tr&gt;'+
+              '&lt;/tbody&gt;'+
+           ' &lt;/table&gt;',
+  replace:true,
+  //声明属性
+  props:{
+    thead:Array,
+    tbody:Array
+  }
+  });
+  return Vue;
+});
+ 
+        
+    </pre>
+    <div class="col-md-12">
+       <h3><a href="html/vt.html" target="_blank">& 解析</a></h3>
+    </div>
+    <pre>
+    &lt;div class="row" id="mytest"&gt;
+        &lt;vt :thead="thead" :tbody="tbody"&gt;&lt;/vt&gt;  
+    &lt;/div&gt; </pre>
+    <pre>
+      &lt;script type="text/javascript"&gt;
+    //4列
+    var thead=[1,2,3,4];
+    thead = thead.map(function(el){
+      return {
+        name:'name'+el,
+        text:'text'+el,
+        show:true
+      };
+    });
+    //5行
+    var tbody=[1,2,3,4,5];
+    tbody = tbody.map(function(el){
+      var tr ={};
+      thead.forEach(function(ele){
+        tr[ele.name]=Math.ceil(100*Math.random());
+      });
+      return tr;
+    });
+    require(['app/vt'],function(Vue){
+        var vm=new Vue({
+            el:'#mytest',
+            data:{
+              thead:thead,
+              tbody:tbody
+            }
+        });
+    });
+    &lt;/script&gt;
+    </pre>
         </div>
+
     </body>
     <script>
 
