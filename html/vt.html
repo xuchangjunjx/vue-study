@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>vform</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href="../css/bootstrap.css" rel="stylesheet">
+       <script data-main="../js/main.js" src="../js/require.js"></script> 
+    </head>
+  <body class="container-fluid">
+    <div class="row" id="mytest">
+        <vt :thead="thead" :tbody="tbody"></vt>  
+    </div>
+
+    </body>
+    <script type="text/javascript">
+    //4列
+    var thead=[1,2,3,4];
+    thead = thead.map(function(el){
+      return {
+        name:'name'+el,
+        text:'text'+el,
+        show:true
+      };
+    });
+    //5行
+    function getBody(){
+      var tbody=[1,2,3,4,5];
+    tbody = tbody.map(function(el){
+      var tr ={};
+      thead.forEach(function(ele){
+        tr[ele.name]=Math.ceil(100*Math.random());
+      });
+      return tr;
+    });
+    return tbody;
+    }
+    require(['app/vt'],function(Vue){
+        var vm=new Vue({
+            el:'#mytest',
+            data:{
+              thead:thead,
+              tbody:getBody()
+            }
+        });
+      //每0.5s改变tbody内容
+        setInterval(function(){
+          vm.tbody=getBody();
+        }, 500);
+    });
+    </script>
+</html>
